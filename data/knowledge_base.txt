@@ -1,0 +1,25 @@
+Green AI reduces token-level energy by routing simple queries to smaller models and skipping retrieval when unnecessary.
+
+Quantization (4-bit, 8-bit) cuts GPU memory and inference energy for LLMs like Mistral-7B and Qwen2.5 without large accuracy drops.
+
+KV-cache compression and speculative decoding lower per-token compute during long generations.
+
+Adaptive RAG retrieves documents only when the query needs external knowledge; factual lookups from cache skip the vector DB.
+
+Prompt compression summarizes retrieved chunks before sending them to the model, reducing input tokens by 30-60%.
+
+CodeCarbon estimates CPU/GPU energy and CO2 emissions during AI workloads using regional carbon intensity.
+
+Neuromorphic and photonic chips are research alternatives to reduce semiconductor-heavy AI energy demand.
+
+FlashAttention and PagedAttention improve attention efficiency, reducing latency and energy per token on GPUs.
+
+Distillation trains small student models (TinyLlama, Phi-3) to mimic larger teachers for cheaper inference.
+
+Token budget controllers cap max output length to prevent wasteful long generations from chat interfaces.
+
+MoE (Mixture of Experts) activates only subsets of parameters per token, improving efficiency at scale.
+
+Edge AI processors run quantized models locally, avoiding repeated cloud API calls and their energy cost.
+
+Hugging Face and MLCommons publish benchmarks linking model size, tokens, and estimated inference energy.
