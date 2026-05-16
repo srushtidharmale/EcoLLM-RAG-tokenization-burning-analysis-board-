@@ -5,31 +5,49 @@
 
 **Green AI:** Reducing token-level energy consumption through efficient LLM inference.
 
-## Live demo
+## Live demo (public — anyone can open)
 
-The dashboard is **not online until you deploy it once** (free).
+After you deploy once, share this link. **No sign-in required** for visitors when the app is set to **Public**.
 
-1. Click **Deploy to Streamlit** badge above (sign in with GitHub as `srushtidharmale`).
-2. Confirm **Main file:** `streamlit_app.py` → **Deploy**.
-3. Copy the URL Streamlit gives you (e.g. `https://your-app-name.streamlit.app`).
+| Platform | Your link (fill in after deploy) |
+|----------|----------------------------------|
+| **Streamlit Cloud** | `https://YOUR-APP-NAME.streamlit.app` |
+| **Render** (recommended for public access) | `https://ecollm-rag-dashboard.onrender.com` |
 
-Full instructions: [DEPLOY.md](DEPLOY.md)
+### Make Streamlit publicly viewable (important)
 
-> If you see *"You do not have access to this app"* — that URL does not exist yet. Deploy first, then use the URL from your Streamlit dashboard.
+If people see *"You do not have access"* or must sign in:
+
+1. Go to [share.streamlit.io](https://share.streamlit.io/) → open your app.
+2. Click **⚙️ Settings** (or **Manage app**).
+3. Under **Sharing** / **Visibility**, choose **Public** (not Private).
+4. Save → copy the `.streamlit.app` URL into this README.
+
+[![Deploy to Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=srushtidharmale/EcoLLM-RAG-tokenization-burning-analysis-board-&branch=main&mainModule=streamlit_app.py)
+
+- **Repository:** `srushtidharmale/EcoLLM-RAG-tokenization-burning-analysis-board-`
+- **Main file:** `streamlit_app.py`
+
+### Alternative: Render (always public URL)
+
+1. [render.com](https://render.com) → sign in with GitHub.
+2. **New +** → **Blueprint** → connect this repo (uses `render.yaml`).
+3. Deploy → share the `onrender.com` link (no viewer login).
+
+Details: [DEPLOY.md](DEPLOY.md)
 
 ## Problem
 
-LLMs burn energy on every token. Typical API usage (Claude, GPT, etc.) sends **full context** to **large models** for every query. EcoLLM-RAG optimizes **accuracy + energy + latency**.
+LLMs burn energy on every token. EcoLLM-RAG routes simple queries to small models, skips RAG when possible, and compresses context — vs always using a large model + full RAG.
 
 ## What we built
 
 | Module | Purpose |
 |--------|---------|
-| **Energy-Aware Router** | Simple → TinyLlama, medium → Phi-3 + compressed RAG, complex → Mistral-7B |
-| **Adaptive RAG** | Skips retrieval when not needed |
-| **Prompt Compression** | Trims context before inference |
-| **Token Budget** | Caps output tokens per route |
-| **Live Dashboard** | Streamlit UI with savings charts vs baseline |
+| **Energy-Aware Router** | TinyLlama / Phi-3 / Mistral by difficulty |
+| **Adaptive RAG** | Retrieval only when needed |
+| **Prompt Compression** | Fewer input tokens |
+| **Live Dashboard** | Metrics + charts vs wasteful baseline |
 
 ## Local run
 
@@ -40,20 +58,7 @@ pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
-CLI demo: `python run_demo.py`
-
-## Research question
-
-Can an energy-aware RAG system reduce token usage, latency, and estimated CO₂ while maintaining answer quality?
-
-## Project structure
-
-```
-ecollm/              # Router, RAG, inference, energy tracker
-app/dashboard.py     # Streamlit UI
-streamlit_app.py     # Cloud entry point (use this for deploy)
-data/                # Knowledge base
-```
+Open http://localhost:8501
 
 ## License
 
